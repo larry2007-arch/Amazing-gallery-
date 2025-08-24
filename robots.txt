@@ -1,0 +1,1 @@
+Sitemap: https://amazingallery.netlify.app/sitemap.xml
