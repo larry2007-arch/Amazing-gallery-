@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazing Gallery</title>
+    <title>Amazing Gallery</title> 
+    <script src="script.js"></script>
     <style>
         /* General Body and Font Styles */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -215,52 +216,6 @@
         <img class="modal-content" id="modalImage">
         <video class="modal-content" id="modalVideo" controls></video>
     </div>
-
-    <script>
-        // Get the modal and its content elements
-        var modal = document.getElementById("myModal");
-        var modalImage = document.getElementById("modalImage");
-        var modalVideo = document.getElementById("modalVideo");
-
-        // Function to open the modal and display the selected media
-        function openModal(element) {
-            modal.style.display = "flex";
-            if (element.tagName === 'IMG') {
-                modalImage.src = element.dataset.src;
-                modalImage.style.display = "block";
-                modalVideo.style.display = "none";
-                modalVideo.pause(); // Ensure video is paused
-                modalVideo.currentTime = 0; // Reset video to the beginning
-            } else if (element.tagName === 'VIDEO') {
-                modalVideo.src = element.dataset.src;
-                modalVideo.style.display = "block";
-                modalVideo.play();
-                modalImage.style.display = "none";
-            }
-        }
-
-        // Function to close the modal
-        function closeModal() {
-            modal.style.display = "none";
-            modalVideo.pause();
-            modalVideo.currentTime = 0;
-        }
-
-        // Close the modal when clicking outside of the content
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-
-        // Close the modal when the user presses the Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                if (modal.style.display === "flex") {
-                    closeModal();
-                }
-            }
-        });
-    </script>
+    
 </body>
 </html>
