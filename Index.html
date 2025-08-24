@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing Gallery</title>
+    <style>
+        /* General Body and Font Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        /* Header Section Styles */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1.125rem;
+            color: #4b5563;
+        }
+
+        /* Gallery Grid Layout */
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* Individual Gallery Item Styles */
+        .gallery-item {
+            position: relative;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        /* Download Button Styles */
+        .download-btn {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .gallery-item:hover .download-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            flex-direction: column;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close-btn:hover, .close-btn:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+        /* Make the modal video content responsive */
+        #modalVideo {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Amazing Gallery</h1>
+        <p>Explore and download stunning photos and videos.</p>
+    </header>
+
+    <!-- Gallery Grid -->
+    <main>
+        
+        <!-- Example Photo Item 1 -->
+        <div class="gallery-item">
+            <img src="https://placehold.co/800x600/60a5fa/ffffff?text=Amazing+Photo+1" 
+                 data-src="https://placehold.co/1200x900/60a5fa/ffffff?text=Amazing+Photo+1" 
+                 alt="Amazing Photo 1" 
+                 onclick="openModal(this)">
+            <a href="https://placehold.co/1200x900/60a5fa/ffffff?text=Amazing+Photo+1" download="amazing_photo_1.jpg" class="download-btn">
+                Download
+            </a>
+        </div>
+
+        <!-- Example Video Item 1 -->
+        <div class="gallery-item">
+            <video playsinline poster="https://placehold.co/800x600/34d399/ffffff?text=Amazing+Video+1" 
+                   data-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+                   onclick="openModal(this)">
+                <source src="http://commondatestorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <a href="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" download="big_buck_bunny.mp4" class="download-btn">
+                Download
+            </a>
+        </div>
+
+        <!-- Example Photo Item 2 -->
+        <div class="gallery-item">
+            <img src="https://placehold.co/800x600/f87171/ffffff?text=Amazing+Photo+2" 
+                 data-src="https://placehold.co/1200x900/f87171/ffffff?text=Amazing+Photo+2" 
+                 alt="Amazing Photo 2" 
+                 onclick="openModal(this)">
+            <a href="https://placehold.co/1200x900/f87171/ffffff?text=Amazing+Photo+2" download="amazing_photo_2.jpg" class="download-btn">
+                Download
+            </a>
+        </div>
+
+        <!-- Example Video Item 2 -->
+        <div class="gallery-item">
+            <video playsinline poster="https://placehold.co/800x600/fbbf24/ffffff?text=Amazing+Video+2" 
+                   data-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" 
+                   onclick="openModal(this)">
+                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <a href="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" download="for_bigger_fun.mp4" class="download-btn">
+                Download
+            </a>
+        </div>
+        
+        <!-- Example Photo Item 3 -->
+        <div class="gallery-item">
+            <img src="https://placehold.co/800x600/a78bfa/ffffff?text=Amazing+Photo+3" 
+                 data-src="https://placehold.co/1200x900/a78bfa/ffffff?text=Amazing+Photo+3" 
+                 alt="Amazing Photo 3" 
+                 onclick="openModal(this)">
+            <a href="https://placehold.co/1200x900/a78bfa/ffffff?text=Amazing+Photo+3" download="amazing_photo_3.jpg" class="download-btn">
+                Download
+            </a>
+        </div>
+
+        <!-- Example Video Item 3 -->
+        <div class="gallery-item">
+            <video playsinline poster="https://placehold.co/800x600/38bdf8/ffffff?text=Amazing+Video+3" 
+                   data-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" 
+                   onclick="openModal(this)">
+                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <a href="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" download="sintel.mp4" class="download-btn">
+                Download
+            </a>
+        </div>
+
+    </main>
+
+    <!-- The Modal for full-screen view -->
+    <div id="myModal" class="modal">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <video class="modal-content" id="modalVideo" controls></video>
+    </div>
+
+    <script>
+        // Get the modal and its content elements
+        var modal = document.getElementById("myModal");
+        var modalImage = document.getElementById("modalImage");
+        var modalVideo = document.getElementById("modalVideo");
+
+        // Function to open the modal and display the selected media
+        function openModal(element) {
+            modal.style.display = "flex";
+            if (element.tagName === 'IMG') {
+                modalImage.src = element.dataset.src;
+                modalImage.style.display = "block";
+                modalVideo.style.display = "none";
+                modalVideo.pause(); // Ensure video is paused
+                modalVideo.currentTime = 0; // Reset video to the beginning
+            } else if (element.tagName === 'VIDEO') {
+                modalVideo.src = element.dataset.src;
+                modalVideo.style.display = "block";
+                modalVideo.play();
+                modalImage.style.display = "none";
+            }
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modal.style.display = "none";
+            modalVideo.pause();
+            modalVideo.currentTime = 0;
+        }
+
+        // Close the modal when clicking outside of the content
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close the modal when the user presses the Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                if (modal.style.display === "flex") {
+                    closeModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
